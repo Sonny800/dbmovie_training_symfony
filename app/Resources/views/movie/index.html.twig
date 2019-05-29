@@ -1,0 +1,53 @@
+{% extends 'base.html.twig' %}
+{% block body %}
+<header>
+    <h1>Tous les films</h1>
+    <p>Retrouvez les films recensés sur Allociné, à voir ou à revoir, seul, en famille, ou entre amis.</p>
+</header>
+
+<aside class="nav_genre">
+    <h3>Par genres </h3>
+    <ul>
+        {% for genre in genres %}
+        <li> {{ genre.name }} </li>
+        {% endfor %}
+    </ul>
+    <hr>
+
+    <h3>Par année de production</h3>
+    <ul>
+        <li>2020-2029</li>
+        <li>2010-2019</li>
+    </ul>
+</aside>
+
+<div class="movies">
+    {% for movie in movies %}
+        {# {{dump(movie.rates)}} #}
+    <div class="movie">
+        <p class="movie_picture"><img src="http://lorempixel.com/640/480/" alt="movie_picture"></p>
+
+        <div class="movie_informations">
+            <h3 class="movie_informations_title"><a href=" {{ path('movie_show', {'id': movie.id})}} " class="movie_informations_title_link">{{ movie.title }}</a></h3>
+            <p class="movie_informations_multi">22 février {{movie.year}} / {{ movie.duration }} min / {% for genre in movie.genres %} {{ genre.name }} {% endfor %} </p>
+            <p class="movie_informations_director">De {{ movie.director.name }} </p>
+            <p class="movie_informations_actors">Avec {% for actor in movie.actors %} {{ actor.name }} {% endfor %} </p>
+
+            <p class="movie_informations_description">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Cum non neque perspiciatis enim aliquam, praesentium est, laudantium maiores sunt aspernatur itaque alias optio sint amet repudiandae suscipit id quae autem!</p>
+                {% set avg = 0 %}
+            {% for rating in movie.rates %}
+                    {% set avg = avg + rating.rate %}
+            <p> {{rating.rate}} </p>
+            {% endfor %}
+            {% set avg = avg / movie.rates|length %}
+            <p>Note : {{ avg|number_format(1) }}  </p>
+        </div>
+    </div>
+    <hr>
+    {% endfor %}
+
+    
+</div>
+
+
+{% endblock %}

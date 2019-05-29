@@ -1,0 +1,22 @@
+{% extends 'base.html.twig' %}
+{% block stylesheets %}
+<link rel="stylesheet" href="asset('css/show.css')}}">
+{% endblock %}
+{% block body %}
+
+
+<h1> Film numéro ID : {{ movie.id }} sorti en {{ movie.year }} </h1>
+<h2> {{ movie.title }} </h2>
+<h3> {{ movie.duration }} min / Interdit au moins de {{ movie.age }} ans </h3>
+<h4> Description : {{ movie.description }}</h4>
+<p> Distributeur : {{ movie.distributor.name }}</p>
+<p> Réalisateur : {{ movie.director.name }}</p>
+<p> Genres du film : {% for genre in movie.genres %} {{ genre.name }}  {% endfor %}</p>
+<ul> 
+		{{dump(movie.actors)}}
+		{{dump(movie.genres)}}
+	{% for actor in movie.actors %}
+		<li> {{ actor.name }} </li>
+	{% endfor %}
+</ul>
+{% endblock %}
